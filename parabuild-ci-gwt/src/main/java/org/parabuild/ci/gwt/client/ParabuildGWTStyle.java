@@ -62,14 +62,12 @@ public class ParabuildGWTStyle implements EntryPoint {
 
       // Create the popup dialog box
       final DialogBox dialogBox = new DialogBox();
-      dialogBox.setText("Remote Procedure Call");
-      dialogBox.setAnimationEnabled(true);
+      dialogBox.setText("Sample Dialog Box");
       final Button closeButton = new Button("Close");
-      // We can set the id of a widget by accessing its Element
-      closeButton.getElement().setId("closeButton");
       final Label textToServerLabel = new Label();
       final HTML serverResponseLabel = new HTML();
-      VerticalPanel dialogVPanel = new VerticalPanel();
+
+      final VerticalPanel dialogVPanel = new VerticalPanel();
       dialogVPanel.addStyleName("dialogVPanel");
       dialogVPanel.add(new HTML("<b>Sending name to the server:</b>"));
       dialogVPanel.add(textToServerLabel);
@@ -82,7 +80,7 @@ public class ParabuildGWTStyle implements EntryPoint {
       // Add a handler to close the DialogBox
       closeButton.addClickHandler(new ClickHandler() {
 
-         public void onClick(ClickEvent event) {
+         public void onClick(final ClickEvent event) {
 
             dialogBox.hide();
             sendButton.setEnabled(true);
@@ -96,7 +94,7 @@ public class ParabuildGWTStyle implements EntryPoint {
          /**
           * Fired when the user clicks on the sendButton.
           */
-         public void onClick(ClickEvent event) {
+         public void onClick(final ClickEvent event) {
 
             sendNameToServer();
          }
@@ -105,7 +103,7 @@ public class ParabuildGWTStyle implements EntryPoint {
          /**
           * Fired when the user types in the nameField.
           */
-         public void onKeyUp(KeyUpEvent event) {
+         public void onKeyUp(final KeyUpEvent event) {
 
             if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
                sendNameToServer();
@@ -119,7 +117,7 @@ public class ParabuildGWTStyle implements EntryPoint {
          private void sendNameToServer() {
             // First, we validate the input.
             errorLabel.setText("");
-            String textToServer = nameField.getText();
+            final String textToServer = nameField.getText();
             if (!FieldVerifier.isValidName(textToServer)) {
                errorLabel.setText("Please enter at least four characters");
                return;
@@ -131,7 +129,7 @@ public class ParabuildGWTStyle implements EntryPoint {
             serverResponseLabel.setText("");
             greetingService.greetServer(textToServer, new AsyncCallback<String>() {
 
-               public void onFailure(Throwable caught) {
+               public void onFailure(final Throwable caught) {
                   // Show the RPC error message to the user
                   dialogBox.setText("Remote Procedure Call - Failure");
                   serverResponseLabel.addStyleName("serverResponseLabelError");
@@ -141,7 +139,7 @@ public class ParabuildGWTStyle implements EntryPoint {
                }
 
 
-               public void onSuccess(String result) {
+               public void onSuccess(final String result) {
 
                   dialogBox.setText("Remote Procedure Call");
                   serverResponseLabel.removeStyleName("serverResponseLabelError");
@@ -154,7 +152,7 @@ public class ParabuildGWTStyle implements EntryPoint {
       }
 
       // Add a handler to send the name to the server
-      MyHandler handler = new MyHandler();
+      final MyHandler handler = new MyHandler();
       sendButton.addClickHandler(handler);
       nameField.addKeyUpHandler(handler);
    }

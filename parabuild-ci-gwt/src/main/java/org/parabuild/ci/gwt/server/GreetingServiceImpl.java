@@ -20,7 +20,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
                  "Name must be at least 4 characters long");
       }
 
-      String serverInfo = getServletContext().getServerInfo();
+      final String serverInfo = getServletContext().getServerInfo();
       String userAgent = getThreadLocalRequest().getHeader("User-Agent");
 
       // Escape data from the client to avoid cross-site script vulnerabilities.
@@ -38,7 +38,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
     * @param html the html string to escape
     * @return the escaped string
     */
-   private String escapeHtml(String html) {
+   private String escapeHtml(final String html) {
 
       if (html == null) {
          return null;
